@@ -1,9 +1,9 @@
-{{ cookiecutter.package_name|replace('-', '_') }}
-{{ "=" * cookiecutter.package_name|length }}
+{{ cookiecutter.project_slug|replace('-', '_') }}
+{{ "=" * cookiecutter.project_slug|length }}
 
 .. testsetup::
 
-    from {{ cookiecutter.package_name|replace('-', '_') }} import *
+    from {{ cookiecutter.project_slug|replace('-', '_') }} import *
 
-.. automodule:: {{ cookiecutter.package_name|replace('-', '_') }}
+.. automodule:: {{ cookiecutter.project_slug|replace('-', '_') }}
     :members:

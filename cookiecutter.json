@@ -1,7 +1,7 @@
 {
-    "full_name": "Your name",
+    "full_name": "DataScienceUB",
     "email": "Your address email (eq. you@example.com)",
-    "github_username": "Your github username",
+    "github_username": "DataScienceUB",
     "project_name": "Name of the project",
     "project_slug": "{{ cookiecutter.project_name.lower().replace('cookiecutter', '').strip().replace(' ', '-') }}-ub",
     "project_short_description": "A short description of the project",
