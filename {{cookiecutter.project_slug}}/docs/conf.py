@@ -23,7 +23,7 @@ if os.getenv('SPELLCHECK'):
 source_suffix = '.rst'
 master_doc = 'index'
 project = {{ '{0!r}'.format(cookiecutter.project_name) }}
-year = {{ '{0!r}'.format('<YEAR>' if cookiecutter.year == 'now' else cookiecutter.year) }}
+year = {{ '{0!r}'.format('<YEAR>') }}
 author = {{ '{0!r}'.format(cookiecutter.full_name) }}
 copyright = '{0}, {1}'.format(year, author)
 version = release = {{ '{0!r}'.format(cookiecutter.version) }}
@@ -31,8 +31,8 @@ version = release = {{ '{0!r}'.format(cookiecutter.version) }}
 pygments_style = 'trac'
 templates_path = ['.']
 extlinks = {
-    'issue': ('https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/issues/%s', '#'),
-    'pr': ('https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/pull/%s', 'PR #'),
+    'issue': ('https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues/%s', '#'),
+    'pr': ('https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/pull/%s', 'PR #'),
 }
 
 {%- if cookiecutter.sphinx_theme|lower != 'sphinx-rtd-theme' %}
@@ -40,7 +40,7 @@ import {{ cookiecutter.sphinx_theme|replace('-', '_') }}
 html_theme = "{{ cookiecutter.sphinx_theme|replace('-', '_') }}"
 html_theme_path = [{{ cookiecutter.sphinx_theme|replace('-', '_') }}.get_html_theme_path()]
 html_theme_options = {
-    'githuburl': 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/'
+    'githuburl': 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/'
 }
 {%- else %}
 # on_rtd is whether we are on readthedocs.org
