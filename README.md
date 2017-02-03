@@ -1,4 +1,4 @@
-cookiecutter-template
+datascience-template
 =====================
 [Cookiecutter](https://github.com/audreyr/cookiecutter) template for creating a... cookiecutter template...    
 
