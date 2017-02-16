@@ -58,4 +58,3 @@ jlb_models = dict(get_models("jlb", joblib))
 json_models = dict(get_models("json", jsonpickle))
 models = merge_two_dicts(merge_two_dicts(pkl_models, jlb_models), json_models)
 
-print models
