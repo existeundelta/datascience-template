@@ -17,7 +17,9 @@ ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 ## Fetch project from repo
 RUN mkdir /opt/{{cookiecutter.project_slug}}
-COPY ./ /opt/{{cookiecutter.project_slug}}/
+COPY ./src/ /opt/invalcor/src
+COPY ./models/ /opt/invalcor/models
+COPY ./requirements.txt /opt/invalcor/requirements.txt
 
 
 ## Python libraries
