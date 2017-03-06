@@ -2,6 +2,7 @@ import json
 from flask import Flask
 from flask_restful import Resource, Api, abort, request
 import urllib
+import urlparse
 
 from models import models
 
@@ -29,10 +30,21 @@ def assert_model_exists(name):
         abort(409, message="Model \"{}\" does not exist".format(name))
 
 def data_as_json_format(data):
+    if type(data) in [dict, list, tuple]:
+        return data
+
     try:
         return json.loads(data)
     except:
         abort(400, message="Sent data is expected to be in JSON format")
+
+
+def request_wants_json():
+    best = request.accept_mimetypes \
+        .best_match(['application/json', 'text/html'])
+    return best == 'application/json' and \
+        request.accept_mimetypes[best] > \
+        request.accept_mimetypes['text/html']
 
 
 class Predict(Resource):
@@ -44,8 +56,21 @@ class Predict(Resource):
             abort(400, message="Sent data is not well-formed")
 
     def post(self):
-        model_name = request.form.get('model')
-        data = request.form.get('data')
+        if request_wants_json():
+            model_name = request.json['model']
+            data = request.json['data']
+        else:
+            if 'model' in request.form:
+                model_name = request.form.get('model')
+                data = request.form.get('data')
+            else:
+                data = request.data
+                if type(data) != str:
+                    abort(400, message="Did not understand Content-Type, use application/x-url-encoded")
+
+                decoded = urlparse.parse_qs(data)
+                model_name = decoded['model'][0]
+                data = decoded['data'][0]
 
         assert_model_exists(model_name)
         return {'result': models[model_name].predict(data_as_json_format(data))}
